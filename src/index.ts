@@ -11,6 +11,20 @@ export default {
       });
     }
 
+    // Extract the API key from the request headers
+    const authHeader = request.headers.get('Authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return new Response('Unauthorized: Missing or invalid Authorization header', { status: 401 });
+    }
+
+    const requestApiKey = authHeader.split(' ')[1]; // Extract the key after "Bearer "
+    const validApiKey = env.CLOUDFLARE_API_KEY; // Get the valid API key from environment variables
+
+    // Validate the API key
+    if (requestApiKey !== validApiKey) {
+      return new Response('Unauthorized: Invalid API key', { status: 401 });
+    }
+
     // Parse the prompt from the request
     let prompt = 'cyberpunk cat'; // Default prompt
     const url = new URL(request.url);
