@@ -4,11 +4,19 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         headers: {
-          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Origin': 'http://localhost:4200',
           'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
           'Access-Control-Allow-Headers': 'Content-Type, Authorization', // Allow Authorization header
         },
       });
+    }
+
+    // Enforce Referer/Origin restriction
+    const allowedOrigin = 'http://localhost:4200';
+    const origin = request.headers.get('Origin') || request.headers.get('Referer') || '';
+
+    if (!origin.startsWith(allowedOrigin)) {
+      return new Response('Forbidden: Invalid origin', { status: 403 });
     }
 
     // Extract the API key from the request headers
