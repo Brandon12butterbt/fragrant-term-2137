@@ -10,13 +10,19 @@ export default {
         },
       });
     }
-
+    
     // Enforce Referer/Origin restriction
     const allowedOrigins = ['http://localhost:3000', 'http://localhost:4200'];
-    const origin = request.headers.get('Origin') || request.headers.get('Referer') || '';
-
+    const origin = request.headers.get('Origin') || '';
+    const referer = request.headers.get('Referer') || '';
+    
+    // Log both headers for debugging
+    console.log('Origin:', origin); // Log the Origin header
+    console.log('Referer:', referer); // Log the Referer header
+    
+    // If the origin is not allowed, log and respond with the invalid origin
     if (!allowedOrigins.some((allowedOrigin) => origin.startsWith(allowedOrigin))) {
-      return new Response(`Forbidden: Invalid origin (${origin})`, { status: 403 });
+      return new Response(`Forbidden: Invalid origin (${origin} | Referer: ${referer})`, { status: 403 });
     }
 
     // Extract the API key from the request headers
