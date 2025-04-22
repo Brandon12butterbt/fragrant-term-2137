@@ -4,7 +4,7 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         headers: {
-          'Access-Control-Allow-Origin': 'http://localhost:4200',
+          'Access-Control-Allow-Origin': 'http://localhost:3000',
           'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
           'Access-Control-Allow-Headers': 'Content-Type, Authorization', // Allow Authorization header
         },
@@ -12,7 +12,7 @@ export default {
     }
 
     // Enforce Referer/Origin restriction
-    const allowedOrigin = 'http://localhost:4200';
+    const allowedOrigin = 'http://localhost:3000';
     const origin = request.headers.get('Origin') || request.headers.get('Referer') || '';
 
     if (!origin.startsWith(allowedOrigin)) {
