@@ -1,20 +1,24 @@
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
+    console.log('Test 1');
     // Handle CORS preflight requests
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         headers: {
-          'Access-Control-Allow-Origin': 'http://localhost:3000, http://localhost:4200', 'https://afluxgen.com',
+          'Access-Control-Allow-Origin': 'http://localhost:3000, http://localhost:4200, https://afluxgen.com',
           'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
           'Access-Control-Allow-Headers': 'Content-Type, Authorization', // Allow Authorization header
         },
       });
     }
-    
+
+    console.log('Test 2');
     // Enforce Referer/Origin restriction
     const allowedOrigins = ['http://localhost:3000', 'http://localhost:4200', 'https://afluxgen.com'];
     const origin = request.headers.get('Origin') || '';
     const referer = request.headers.get('Referer') || '';
+
+    console.log('Test 3');
     
     // Log both headers for debugging
     console.log('Origin:', origin); // Log the Origin header
