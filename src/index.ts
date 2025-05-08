@@ -4,7 +4,7 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         headers: {
-          'Access-Control-Allow-Origin': 'http://localhost:3000, http://localhost:4200',
+          'Access-Control-Allow-Origin': 'http://localhost:3000, http://localhost:4200', 'https://afluxgen.com',
           'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
           'Access-Control-Allow-Headers': 'Content-Type, Authorization', // Allow Authorization header
         },
@@ -12,7 +12,7 @@ export default {
     }
     
     // Enforce Referer/Origin restriction
-    const allowedOrigins = ['http://localhost:3000', 'http://localhost:4200'];
+    const allowedOrigins = ['http://localhost:3000', 'http://localhost:4200', 'https://afluxgen.com'];
     const origin = request.headers.get('Origin') || '';
     const referer = request.headers.get('Referer') || '';
     
